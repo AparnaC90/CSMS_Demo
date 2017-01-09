@@ -1,0 +1,641 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+ExtentReports Library 2.40.2 | http://relevantcodes.com/extentreports-for-selenium/ | https://github.com/anshooarora/
+Copyright (c) 2015, Anshoo Arora (Relevant Codes) | Copyrights licensed under the New BSD License | http://opensource.org/licenses/BSD-3-Clause
+Documentation: http://extentreports.relevantcodes.com 
+-->
+
+<meta charset='UTF-8' /> 
+<meta name='description' content='ExtentReports (by Anshoo Arora) is a reporting library for automation testing for .NET and Java. It creates detailed and beautiful HTML reports for modern browsers. ExtentReports shows test and step summary along with dashboards, system and environment details for quick analysis of your tests.' />
+<meta name='robots' content='noodp, noydir' />
+<meta name='viewport' content='width=device-width, initial-scale=1' />
+
+<title>
+Multi Tenant Code Base
+</title>
+
+
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>
+<link href='https://cdn.rawgit.com/anshooarora/extentreports/e4f8ea1de961161791c01b99a71a1e17f81125cf/cdn/extent.css' type='text/css' rel='stylesheet' />
+
+<style>
+
+      
+        
+      
+    
+</style>
+</head>
+
+
+<body class='extent standard hide-overflow'>
+<!-- nav -->
+<nav>
+<div class='logo-container'>
+<a class='logo-content' href='http://extentreports.relevantcodes.com'>
+<span>ExtentReports</span>
+</a>
+<a href='#' data-activates='slide-out' class='button-collapse hide-on-large-only'><i class='mdi-navigation-apps'></i></a>
+</div>
+<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
+<li class='analysis waves-effect active'><a href='#!' class='test-view' onclick="_updateCurrentStage(0)"><i class='mdi-action-dashboard'></i>Test Details</a></li>
+<li class='analysis waves-effect'><a href='#!' class='dashboard-view'><i class='mdi-action-track-changes'></i></i>Analysis</a></li>
+</ul>
+<span class='report-name'>Multi Tenant-Keyword Framework</span> <span class='report-headline'>Keyword Framework</span>
+<ul class='right hide-on-med-and-down nav-right'>
+<li class='theme-selector' alt='Click to toggle dark theme. To enable by default, use js configuration $("body").addClass("dark");' title='Click to toggle dark theme. To enable by default, use js configuration $("body").addClass("dark");'>
+<i class='mdi-hardware-desktop-windows'></i>
+</li>
+<li>
+<span class='suite-started-time'>2017-01-09 11:12:21</span>
+</li>
+<li>
+<span>v2.40.2</span>
+</li>
+</ul>
+</nav>
+<!-- /nav -->
+
+<!-- container -->
+<div class='container'>
+
+<!-- dashboard -->
+<div id='dashboard-view' class='row'>
+<div class='time-totals'>
+<div class='col l2 m4 s6'>
+<div class='card suite-total-tests'> 
+<span class='panel-name'>Total Tests</span> 
+<span class='total-tests'> <span class='panel-lead'></span> </span> 
+</div> 
+</div>
+<div class='col l2 m4 s6'>
+<div class='card suite-total-steps'> 
+<span class='panel-name'>Total Steps</span> 
+<span class='total-steps'> <span class='panel-lead'></span> </span> 
+</div> 
+</div>
+<div class='col l2 m4 s12'>
+<div class='card suite-total-time-current'> 
+<span class='panel-name'>Total Time Taken (Current Run)</span> 
+<span class='suite-total-time-current-value panel-lead'>0h 4m 21s+64ms</span> 
+</div> 
+</div>
+<div class='col l2 m4 s12'>
+<div class='card suite-total-time-overall'> 
+<span class='panel-name'>Total Time Taken (Overall)</span> 
+<span class='suite-total-time-overall-value panel-lead'>0h 4m 21s+64ms</span> 
+</div> 
+</div>
+<div class='col l2 m4 s6 suite-start-time'>
+<div class='card accent green-accent'> 
+<span class='panel-name'>Start</span> 
+<span class='panel-lead suite-started-time'>2017-01-09 11:08:00</span> 
+</div> 
+</div>
+<div class='col l2 m4 s6 suite-end-time'>
+<div class='card accent pink-accent'> 
+<span class='panel-name'>End</span> 
+<span class='panel-lead suite-ended-time'>2017-01-09 11:12:21</span> 
+</div> 
+</div>
+</div>
+<div class='charts'>
+<div class='col s12 m6 l4 fh'> 
+<div class='card-panel'> 
+<div>
+<span class='panel-name'>Tests View</span>
+</div> 
+<div class='panel-setting modal-trigger test-count-setting right'>
+<a href='#test-count-setting'><i class='mdi-navigation-more-vert text-md'></i></a>
+</div> 
+<div class='chart-box'>
+<canvas class='text-centered' id='test-analysis'></canvas>
+</div> 
+<div>
+<span class='weight-light'><span class='t-pass-count weight-normal'></span> test(s) passed</span>
+</div> 
+<div>
+<span class='weight-light'><span class='t-fail-count weight-normal'></span> test(s) failed, <span class='t-others-count weight-normal'></span> others</span>
+</div> 
+</div> 
+</div> 
+<div class='col s12 m6 l4 fh'> 
+<div class='card-panel'> 
+<div>
+<span class='panel-name'>Steps View</span>
+</div> 
+<div class='panel-setting modal-trigger step-status-filter right'>
+<a href='#step-status-filter'><i class='mdi-navigation-more-vert text-md'></i></a>
+</div> 
+<div class='chart-box'>
+<canvas class='text-centered' id='step-analysis'></canvas>
+</div> 
+<div>
+<span class='weight-light'><span class='s-pass-count weight-normal'></span> step(s) passed </span>
+</div> 
+<div>
+<span class='weight-light'><span class='s-fail-count weight-normal'></span> step(s) failed, <span class='s-others-count weight-normal'></span> others</span>
+</div> 
+</div> 
+</div>
+<div class='col s12 m12 l4 fh'> 
+<div class='card-panel'> 
+<span class='panel-name'>Pass Percentage</span> 
+<span class='pass-percentage panel-lead'></span> 
+<div class='progress light-blue lighten-3'> 
+<div class='determinate light-blue'></div> 
+</div> 
+</div> 
+</div>
+</div>
+<div class='system-view'>
+<div class='col l4 m12 s12'>
+<div class='card-panel'>
+<span class='label info outline right'>Environment</span>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OS</td>
+<td>Windows 10</td>
+</tr>
+<tr>
+<td>User Name</td>
+<td>nkarthikeyan</td>
+</tr>
+<tr>
+<td>Java Version</td>
+<td>1.8.0_92</td>
+</tr>
+<tr>
+<td>Host Name</td>
+<td>VSI-LAP-39</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- /dashboard -->
+
+<!-- tests -->
+<div id='test-view' class='row _addedTable'>
+<div class='col _addedCell1'>
+<div class='contents'>
+<div class='card-panel heading'>
+<h5>Tests</h5>
+</div>
+<div class='card-panel filters'>
+<div>
+<a data-activates='tests-toggle' data-constrainwidth='true' data-beloworigin='true' data-hover='true' href='#' class='dropdown-button button tests-toggle'><i class='mdi-action-subject icon'></i></a>
+<ul id='tests-toggle' class='dropdown-content'>
+<li class='pass'><a href='#!'>Pass</a></li>
+<li class='fail'><a href='#!'>Fail</a></li>
+<li class='skip'><a href='#!'>Skip</a></li>
+<li class='divider'></li>
+<li class='clear'><a href='#!'>Clear Filters</a></li>
+</ul>
+</div>
+<div>
+<a id='clear-filters' alt='Clear Filters' title='Clear Filters'><i class='mdi-navigation-close icon'></i></a>
+</div>
+<div>&nbsp;&middot;&nbsp;</div>
+<div>
+<a id='enableDashboard' alt='Enable Dashboard' title='Enable Dashboard'><i class='mdi-action-track-changes icon'></i></a>
+</div>
+<div>
+<a id='refreshCharts' alt='Refresh Charts on Filters' title='Refresh Charts on Filters' class='enabled'><i class='mdi-navigation-refresh icon'></i></i></a>
+</div>
+<div>&nbsp;&middot;</div>
+<div class='search' alt='Search Tests' title='Search Tests'>
+<div class='input-field left'>
+<input id='searchTests' type='text' class='validate' placeholder='Search Tests...'>
+</div>
+<i class='mdi-action-search icon'></i>
+</div>
+</div>
+<div class='card-panel no-padding-h no-padding-v no-margin-v'>
+<div class='wrapper'>
+<ul id='test-collection' class='test-collection'>
+<li class='collection-item test displayed active fail ' extentid='f50d3610-03f2-4fe0-b7a2-2a307917ea9d'>
+<div class='test-head'>
+<span class='test-name'>CSMS </span>
+<span class='test-status label right outline capitalize fail'>fail</span>
+<span class='category-assigned hide '></span>
+</div>
+<div class='test-body'>
+<div class='test-info'>
+<span title='Test started time' alt='Test started time' class='test-started-time label green lighten-1 text-white'>2017-01-09 11:08:00</span>
+<span title='Test ended time' alt='Test ended time' class='test-ended-time label red lighten-1 text-white'>2017-01-09 11:12:21</span>
+<span title='Time taken to finish' alt='Time taken to finish' class='test-time-taken label blue-grey lighten-3 text-white'>0h 4m 20s+633ms</span>
+</div>
+<div class='test-desc'>Multi Tenant code using Keyword framework</div>
+<div class='test-attributes'>
+</div>
+<div class='test-steps'>
+<table class='bordered table-results'>
+<thead>
+<tr>
+<th>Status</th>
+<th>Timestamp</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:07</td>
+<td class='step-details'>The browser:chrome launched successfully<img class='report-img' data-featherlight='./../reports/images/899465426.jpg' src='./../reports/images/899465426.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:09</td>
+<td class='step-details'>The element : //*[@id='page-content']/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div[1]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/125821517.jpg' src='./../reports/images/125821517.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:10</td>
+<td class='step-details'>The element : //*[@id='page-content']/div/div/div[1]/div[3]/div/div/button[2]/b is clicked.<img class='report-img' data-featherlight='./../reports/images/741078460.jpg' src='./../reports/images/741078460.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:12</td>
+<td class='step-details'>The data: Integration entered successfully in field :ApplicationName<img class='report-img' data-featherlight='./../reports/images/176386371.jpg' src='./../reports/images/176386371.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:14</td>
+<td class='step-details'>The data: Description entered successfully in field :ApplicationDescription<img class='report-img' data-featherlight='./../reports/images/744654797.jpg' src='./../reports/images/744654797.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:15</td>
+<td class='step-details'>The data: Testing entered successfully in field :BusinessUnit<img class='report-img' data-featherlight='./../reports/images/125681734.jpg' src='./../reports/images/125681734.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:16</td>
+<td class='step-details'>The element with id: btnSave is clicked.<img class='report-img' data-featherlight='./../reports/images/106958382.jpg' src='./../reports/images/106958382.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:19</td>
+<td class='step-details'>The text: Application added successfully. matches with the value :Application added successfully.<img class='report-img' data-featherlight='./../reports/images/433490280.jpg' src='./../reports/images/433490280.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:20</td>
+<td class='step-details'>The element : //*[@id='mainnav-menu']/li[1]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/583837696.jpg' src='./../reports/images/583837696.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:22</td>
+<td class='step-details'>The element with Css selector: i[class='fa fa-3x fa-cube color-cadetblue'] is clicked with value :<img class='report-img' data-featherlight='./../reports/images/502563280.jpg' src='./../reports/images/502563280.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:23</td>
+<td class='step-details'>The element with xpath: selAppForModuleList is selected with value :Integration<img class='report-img' data-featherlight='./../reports/images/624413249.jpg' src='./../reports/images/624413249.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:23</td>
+<td class='step-details'>The element : //*[@id='page-content']/div/div/div[1]/div[4]/div/div/button[2] is clicked.<img class='report-img' data-featherlight='./../reports/images/186291850.jpg' src='./../reports/images/186291850.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:25</td>
+<td class='step-details'>The data: Module entered successfully in field :ModuleName<img class='report-img' data-featherlight='./../reports/images/30506018.jpg' src='./../reports/images/30506018.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:27</td>
+<td class='step-details'>The data: Module Desc. entered successfully in field :ModuleDescription<img class='report-img' data-featherlight='./../reports/images/285552604.jpg' src='./../reports/images/285552604.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:27</td>
+<td class='step-details'>The element with id: btnSave is clicked.<img class='report-img' data-featherlight='./../reports/images/162455364.jpg' src='./../reports/images/162455364.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:30</td>
+<td class='step-details'>The text: Application module added successfully. matches with the value :Application module added successfully.<img class='report-img' data-featherlight='./../reports/images/645773424.jpg' src='./../reports/images/645773424.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:31</td>
+<td class='step-details'>The element : //*[@id='mainnav-menu']/li[1]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/278801188.jpg' src='./../reports/images/278801188.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:32</td>
+<td class='step-details'>The element : //*[@id='page-content']/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div[3]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/423415734.jpg' src='./../reports/images/423415734.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:32</td>
+<td class='step-details'>The element with xpath: selAppForSubModuleList is selected with value :Integration<img class='report-img' data-featherlight='./../reports/images/267322669.jpg' src='./../reports/images/267322669.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:32</td>
+<td class='step-details'>The element with xpath: selModuleForSubModuleList is selected with value :Module<img class='report-img' data-featherlight='./../reports/images/590069889.jpg' src='./../reports/images/590069889.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:33</td>
+<td class='step-details'>The element : //*[@id='divApplicationSubModuleList']/div/div/button[2] is clicked.<img class='report-img' data-featherlight='./../reports/images/262407040.jpg' src='./../reports/images/262407040.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:35</td>
+<td class='step-details'>The data: Sub module entered successfully in field :SubModuleName<img class='report-img' data-featherlight='./../reports/images/628013542.jpg' src='./../reports/images/628013542.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:36</td>
+<td class='step-details'>The data: Sub Module Desc. entered successfully in field :SubModuleDesciption<img class='report-img' data-featherlight='./../reports/images/707746609.jpg' src='./../reports/images/707746609.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:37</td>
+<td class='step-details'>The element with id: btnSave is clicked.<img class='report-img' data-featherlight='./../reports/images/296999716.jpg' src='./../reports/images/296999716.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:39</td>
+<td class='step-details'>The text: Application sub-module added successfully. matches with the value :Application sub-module added successfully.<img class='report-img' data-featherlight='./../reports/images/793325206.jpg' src='./../reports/images/793325206.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:40</td>
+<td class='step-details'>The element : //*[@id='mainnav-menu']/li[1]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/104649785.jpg' src='./../reports/images/104649785.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:41</td>
+<td class='step-details'>The element : //*[@id='page-content']/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div[4]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/896264934.jpg' src='./../reports/images/896264934.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:42</td>
+<td class='step-details'>The element with xpath: selAppForActionList is selected with value :Integration<img class='report-img' data-featherlight='./../reports/images/736363488.jpg' src='./../reports/images/736363488.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:42</td>
+<td class='step-details'>The element : //*[@id='page-content']/div/div/div[1]/div[4]/div/div/button[2]/b is clicked.<img class='report-img' data-featherlight='./../reports/images/281378507.jpg' src='./../reports/images/281378507.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:44</td>
+<td class='step-details'>The data: Action entered successfully in field :ActionName<img class='report-img' data-featherlight='./../reports/images/622174837.jpg' src='./../reports/images/622174837.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:46</td>
+<td class='step-details'>The data: Action Desc. entered successfully in field :ActionDesc<img class='report-img' data-featherlight='./../reports/images/659543857.jpg' src='./../reports/images/659543857.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:47</td>
+<td class='step-details'>The element with id: btnSave is clicked.<img class='report-img' data-featherlight='./../reports/images/372342802.jpg' src='./../reports/images/372342802.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:49</td>
+<td class='step-details'>The text: Application action added successfully. matches with the value :Application action added successfully.<img class='report-img' data-featherlight='./../reports/images/570932020.jpg' src='./../reports/images/570932020.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:50</td>
+<td class='step-details'>The element : //*[@id='mainnav-menu']/li[1]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/768343925.jpg' src='./../reports/images/768343925.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:52</td>
+<td class='step-details'>The element with Css selector: i[class='fa fa-3x fa-graduation-cap color-midnightblue'] is clicked with value :<img class='report-img' data-featherlight='./../reports/images/611631194.jpg' src='./../reports/images/611631194.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:53</td>
+<td class='step-details'>The element with xpath: selAppForRoleList is selected with value :Integration<img class='report-img' data-featherlight='./../reports/images/276820282.jpg' src='./../reports/images/276820282.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:55</td>
+<td class='step-details'>The element with Css selector: button[class='btn btn-primary btn-add-item pull-right'] is clicked with value :<img class='report-img' data-featherlight='./../reports/images/682591202.jpg' src='./../reports/images/682591202.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:57</td>
+<td class='step-details'>The data: Tester entered successfully in field :RoleName<img class='report-img' data-featherlight='./../reports/images/369229025.jpg' src='./../reports/images/369229025.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:58</td>
+<td class='step-details'>The data: Automation entered successfully in field :txtaRoleDescription<img class='report-img' data-featherlight='./../reports/images/630643927.jpg' src='./../reports/images/630643927.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:08:59</td>
+<td class='step-details'>The element with id: btnSave is clicked.<img class='report-img' data-featherlight='./../reports/images/295555086.jpg' src='./../reports/images/295555086.jpg' /></td>
+</tr>
+<tr>
+<td class='status fail' title='fail' alt='fail'><i class='mdi-navigation-cancel'></i></td>
+<td class='timestamp'>11:09:01</td>
+<td class='step-details'>The text:  did not match with the value :Role added successfully.<img class='report-img' data-featherlight='./../reports/images/14531195.jpg' src='./../reports/images/14531195.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:09:02</td>
+<td class='step-details'>The element : //*[@id='mainnav-menu']/li[1]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/425409976.jpg' src='./../reports/images/425409976.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:09:05</td>
+<td class='step-details'>The element with Css selector: i[class='fa fa-3x fa-user-plus color-paleturquoise'] is clicked with value :<img class='report-img' data-featherlight='./../reports/images/751600859.jpg' src='./../reports/images/751600859.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:09:05</td>
+<td class='step-details'>The element with xpath: selAppForUserRoleList is selected with value :Integration<img class='report-img' data-featherlight='./../reports/images/140886209.jpg' src='./../reports/images/140886209.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:09:06</td>
+<td class='step-details'>The element with xpath: selRoleForUserRoleList is selected with value :Tester<img class='report-img' data-featherlight='./../reports/images/640630546.jpg' src='./../reports/images/640630546.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:09:07</td>
+<td class='step-details'>The element with Css selector: button[class='btn btn-primary btn-add-item pull-right'] is clicked with value :<img class='report-img' data-featherlight='./../reports/images/832220472.jpg' src='./../reports/images/832220472.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:09:08</td>
+<td class='step-details'>The element with id: chkSelectAll is clicked.<img class='report-img' data-featherlight='./../reports/images/565942924.jpg' src='./../reports/images/565942924.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:09:09</td>
+<td class='step-details'>The element with id: btnSave is clicked.<img class='report-img' data-featherlight='./../reports/images/606999479.jpg' src='./../reports/images/606999479.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:09:11</td>
+<td class='step-details'>The text: User assigned to the role successfully. matches with the value :User assigned to the role successfully.<img class='report-img' data-featherlight='./../reports/images/540727527.jpg' src='./../reports/images/540727527.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:09:57</td>
+<td class='step-details'>The element : //*[@id='mainnav-menu']/li[1]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/806501026.jpg' src='./../reports/images/806501026.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:10:08</td>
+<td class='step-details'>The element : //*[@id='mainnav-menu']/li[1]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/661740626.jpg' src='./../reports/images/661740626.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:10:08</td>
+<td class='step-details'>The element : //*[@id='page-content']/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div[1]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/16782165.jpg' src='./../reports/images/16782165.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:10:09</td>
+<td class='step-details'>The element with id: chkSelectAll is clicked.<img class='report-img' data-featherlight='./../reports/images/512086460.jpg' src='./../reports/images/512086460.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:10:10</td>
+<td class='step-details'>The element with id: btnDeleteSelected is clicked.<img class='report-img' data-featherlight='./../reports/images/738111201.jpg' src='./../reports/images/738111201.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:10:12</td>
+<td class='step-details'>The element : //*[@class="bootstrap-dialog-footer-buttons"]/button[1] is clicked.<img class='report-img' data-featherlight='./../reports/images/347670614.jpg' src='./../reports/images/347670614.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:10:15</td>
+<td class='step-details'>The text: Application deleted successfully. matches with the value :Application deleted successfully.<img class='report-img' data-featherlight='./../reports/images/412902807.jpg' src='./../reports/images/412902807.jpg' /></td>
+</tr>
+<tr>
+<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+<td class='timestamp'>11:10:15</td>
+<td class='step-details'>The element : //*[@id='mainnav-menu']/li[1]/a/i is clicked.<img class='report-img' data-featherlight='./../reports/images/40556110.jpg' src='./../reports/images/40556110.jpg' /></td>
+</tr>
+</tbody>
+</table>
+<ul class='collapsible node-list' data-collapsible='accordion'>
+</ul>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id='test-details-wrapper' class='col _addedCell2'>
+<div class='contents'>
+<div class='card-panel details-view'>
+<h5 class='details-name'></h5>
+<div class='details-container'>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /tests -->
+
+<!-- categories -->
+<!-- /categories -->
+
+<!-- exceptions -->
+<!-- /exceptions -->
+
+<!-- testrunner logs -->
+<!-- /testrunner logs -->
+
+</div>
+<!-- /container -->
+
+<!-- test dashboard counts setting -->
+<div id='test-count-setting' class='modal bottom-sheet'> 
+<div class='modal-content'> 
+<h5>Configure Tests Count Setting</h5> 
+<input name='test-count-setting' type='radio' id='parentWithoutNodes' class='with-gap'> 
+<label for='parentWithoutNodes'>Parent Tests Only (Does not include child nodes in counts)</label> 
+<br> 
+<input name='test-count-setting' type='radio' id='parentWithoutNodesAndNodes' class='with-gap'> 
+<label for='parentWithoutNodesAndNodes'>Parent Tests Without Child Tests + Child Tests</label> 
+<br> 
+<input name='test-count-setting' type='radio' id='childNodes' class='with-gap'> 
+<label for='childNodes'>Child Tests Only</label> 
+</div> 
+<div class='modal-footer'> 
+<a href='#!' class='modal-action modal-close waves-effect waves-green btn'>Save</a> 
+</div> 
+</div>
+<!-- /test dashboard counts setting -->
+
+<!-- filter for step status -->
+<div id='step-status-filter' class='modal bottom-sheet'> 
+<div class='modal-content'> 
+<h5>Select status</h5> 
+<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-pass'> 
+<label for='step-dashboard-filter-pass'>Pass</label> 
+<br> 
+<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-fail'> 
+<label for='step-dashboard-filter-fail'>Fail</label> 
+<br> 
+<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-fatal'> 
+<label for='step-dashboard-filter-fatal'>Fatal</label> 
+<br> 
+<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-error'> 
+<label for='step-dashboard-filter-error'>Error</label> 
+<br> 
+<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-warning'> 
+<label for='step-dashboard-filter-warning'>Warning</label> 
+<br> 
+<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-skip'> 
+<label for='step-dashboard-filter-skip'>Skipped</label> 
+<br> 
+<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-info'> 
+<label for='step-dashboard-filter-info'>Info</label> 
+<br> 
+<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-unknown'> 
+<label for='step-dashboard-filter-unknown'>Unknown</label> 
+</div>
+<div class='modal-footer'> 
+<a href='#!' class='modal-action modal-close waves-effect waves-green btn'>Save</a> 
+</div> 
+</div>
+<!-- /filter for step status -->
+
+<script src='https://cdn.rawgit.com/anshooarora/extentreports/c936a26fc8bb9c5fc0253b5bc6f289e1d14bb595/cdn/extent.js' type='text/javascript'></script>
+
+<script>$(document).ready(function() { $('.logo span').html('ExtentReports'); });</script>
+<script>
+
+      
+        $(document).ready(function() {
+          
+        });
+      
+    
+</script>
+</body>
+</html>
